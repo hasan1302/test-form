@@ -27,18 +27,13 @@ class AddClient extends Component {
     });  
   }
 
-
   addClientToDatabase = (event) => {
       const name = this.name.value;
       const phone = this.phone.value;
       const description = this.description.value || "no description";
-
-      console.log(phone)
-      if ((nameIsValid(name)) && (!isNaN.phone)) {
-          console.log("ok");
+      if ((nameIsValid(name)) && (!isNaN.phone) && (this.state.partner.length > 0)) {
           this.register(name, phone, this.state.partner, description);
-      }
-
+      };
       event.preventDefault();
   }
 
@@ -50,23 +45,22 @@ class AddClient extends Component {
   render() {
     return (
             <div>
-                <p> Registration </p>
-
+                <p> Регистрация </p>
                 <form onSubmit={this.addClientToDatabase} >
+
                     <input type="text" placeholder="Имя" ref={(input) => this.name = input} required/>
                     <input type="text" placeholder="Телефон" ref={(input) => this.phone = input} required/>
                     <input type="text" placeholder="Примечание" ref={(input) => this.description = input}/>
-                    <input type="submit" value="Register"/>
+                    <input type="submit" value="Зарегистрировать"/>
 
-                <select onChange={this.submitPartner}>
-                    <option disabled selected>  Выберите Партнёра </option>
-                    <option value="Yula"> Юла </option>
-                    <option value="Avito"> Авито </option>
-                    <option value="Radio"> Сарафанное радио </option>
-                </select>
+                    <select onChange={this.submitPartner} required>
+                        <option disabled selected>  Выберите Партнёра </option>
+                        <option value="Yula"> Юла </option>
+                        <option value="Avito"> Авито </option>
+                        <option value="Radio"> Сарафанное радио </option>
+                    </select>
 
                 </form>
-
             </div>
     );
   }
