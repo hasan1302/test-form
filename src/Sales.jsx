@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 //import './Sales.css';
 import $ from 'jquery';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import {showServices, SERVICES} from './Services';
 
 const clientsUrl = "http://localhost:8000/getclients";
@@ -56,7 +57,8 @@ class Sales extends Component {
 
   render() {
    const clients = [];
-    if (this.state.clients.length>0) { this.state.clients.map((element, i) => {
+    if (this.state.clients.length>0) { 
+        this.state.clients.map((element, i) => {
             clients.push(<option key={i} value={element._id}> {element.name} </option>);
         });
     };
