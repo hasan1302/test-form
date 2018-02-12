@@ -36,19 +36,6 @@ class ClientServices extends Component {
     }
 
   render() {
-    let services = [];
-    if (this.props.client.name.length > 0) {     
-      this.props.client.services.map((item, el) => {
-      services.push(
-        <div align="center"> 
-          <p key={el}>{item[0] + " - назначено на : " + item[1] }</p> 
-          <DatePicker hintText="Сменить дату" /> 
-          <TimePicker format="24hr" hintText="Сменить время" />
-          <IconButton color={red500} iconClassName="material-icons" tooltip="Удалить запись">close</IconButton>
-        </div>)
-    })}
-
-
 
 
 
@@ -60,7 +47,7 @@ class ClientServices extends Component {
             <Tab label="Текущие заказы" >
               <div>
                 <h2 align="center" style={styles.headline}>Текущие заказы</h2>
-                {services}
+                
 
                 
               </div>
@@ -68,8 +55,6 @@ class ClientServices extends Component {
               <Tab label="Прошлые заказы">
                 <div>
                   <h2 align="center"  style={styles.headline}>Прошлые заказы</h2>
-                  <p>{this.props.client.servicesDone.peeling} </p>
-                  <p>{this.props.client.servicesDone.eyelashes} </p>
                 </div>
               </Tab>
             </Tabs>

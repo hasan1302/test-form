@@ -38,8 +38,9 @@ class ClientInfo extends Component {
     }
 
   render() {
+    console.log(this.props.client);
     let showInfo;
-    if (this.props.client.name.length>0) {
+    if (this.props.client) {
       showInfo =  <div>            
                     <h1> {this.props.client.name} </h1>
                     <Divider inset={true} />
@@ -47,8 +48,7 @@ class ClientInfo extends Component {
                     <h3>Партнер: {this.props.client.partner}</h3>
                     <h4>Дата регистрации: {this.props.client.registerDate}</h4>
                     <h5>Примечание: {this.props.client.description} </h5>
-                    <Divider inset={true} />
-                    <ClientServices client={this.props.client} />
+                    <Divider inset={true} /> 
                   </div>
     }
 
@@ -60,8 +60,8 @@ class ClientInfo extends Component {
             <div >
                     <Paper align="center" style={styleInfo}  rounded={false} >
                       {showInfo}
+                      <ClientServices client={this.props.client} />
                       <Divider inset={true} />
-                      
                     </Paper>
       
                     

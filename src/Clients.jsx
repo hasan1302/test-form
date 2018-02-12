@@ -9,29 +9,29 @@ import {List, ListItem} from 'material-ui/List';
 import ClientInfo from './ClientInfo.jsx';
 
 var emptyClient = {
-    name: "",
-    phone: "",
-    partner: "",
-    registerDate: "",
-    services: {
-        peeling: "",
-        eyelashes: ""
-    },
-    servicesDone: {
-        peeling: "",
-        eyelashes: ""
-    },
-    description: ""
+
+        name: "",
+        phone: "",
+        partner: "",
+        registerDate: "",
+        services: [
+
+        ],
+        servicesDone: [
+
+        ],
+        description: ""
+    
 }
 
 const styleClients = {
     width: 400,
     marginRight: 12,
-    display: "inline-block"
+
   };
 
   const styleInfo = {
-    display: "inline-block"
+
   };
 
   const styleAll = {
@@ -52,7 +52,7 @@ class Clients extends Component {
         this.setState({client: client}); 
     }
 
-    createListOfClients = () => {
+    showListOfClients = () => {
         const clientsNames = [];
         if (this.props.clients.length > 0) {
             this.props.clients.map((el, i) => {
@@ -65,6 +65,7 @@ class Clients extends Component {
     }
 
   render() {
+      console.log(this.props.clients)
     const showClientInfo = this.state.client.name ? <ClientInfo client={this.state.client} /> : <ClientInfo client={emptyClient} />;
     return (
             <div>
@@ -73,7 +74,7 @@ class Clients extends Component {
                         <Paper style={{maxHeight: 400, overflow: 'auto'}} rounded={false} >
                             <Subheader align="center">Клиенты</Subheader>
                             <Divider inset={true} />
-                            {this.createListOfClients()}
+                            {this.showListOfClients()}
                         </Paper>
                     </div>
 

@@ -83,20 +83,22 @@ class Controls extends Component {
         }
     }
 
-    componentWillMount() {
+    componentDidMount() {
         fetch(clientsUrl)
         .then(response => response.json())
         .then(data => this.setState({clients: data}))
+        .then(console.log("Clients database loaded"));
+
        // this.setState({clients: clients}); // delete potom
     }
 
   render() {
-      console.log(this.state.clients)
-    return (
-        <div align="center">
-            <Clients clients={this.state.clients}/>           
-        </div>
-    );
+        return (
+            <div align="center"> 
+                <Clients clients={this.state.clients}/> 
+            </div>
+        )
+
   }
 }
 
