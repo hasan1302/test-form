@@ -20,9 +20,6 @@ const muiTheme = getMuiTheme({
 const App = () => (
     <MuiThemeProvider muiTheme={muiTheme}>
       <Authorization />
-      <AddClient />
-      <Sales />
-      <Controls />
     </MuiThemeProvider>
   );
 

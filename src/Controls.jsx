@@ -98,7 +98,6 @@ class Controls extends Component {
                 <Clients clients={this.state.clients}/> 
             </div>
         )
-
   }
 }
 
