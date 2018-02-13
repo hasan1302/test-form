@@ -25,12 +25,13 @@ class AddClient extends Component {
         description: description,
         registerDate: new Date()
     });  
+    console.log("registered client : " + name);
   }
 
   addClientToDatabase = (event) => {
       const name = this.name.value;
       const phone = this.phone.value;
-      const description = this.description.value || "no description";
+      const description = this.description.value || "Без примечаний";
       if ((nameIsValid(name)) && (!isNaN.phone) && (this.state.partner.length > 0)) {
           this.register(name, phone, this.state.partner, description);
       };

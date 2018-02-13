@@ -27,11 +27,11 @@ var emptyClient = {
 const styleClients = {
     width: 400,
     marginRight: 12,
-
+    display: "inline-block"
   };
 
   const styleInfo = {
-
+    display: "inline-block"
   };
 
   const styleAll = {
@@ -65,12 +65,10 @@ class Clients extends Component {
     }
 
   render() {
-      console.log(this.props.clients)
     const showClientInfo = this.state.client.name ? <ClientInfo client={this.state.client} /> : <ClientInfo client={emptyClient} />;
     return (
             <div>
-
-                    <div style={styleClients}>
+                    <div>
                         <Paper style={{maxHeight: 400, overflow: 'auto'}} rounded={false} >
                             <Subheader align="center">Клиенты</Subheader>
                             <Divider inset={true} />

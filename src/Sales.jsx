@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 //import './Sales.css';
 import $ from 'jquery';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import {showServices, SERVICES} from './Services';
+import AppBar from 'material-ui/AppBar';
+import Drawer from 'material-ui/Drawer';
+import MenuItem from 'material-ui/MenuItem';
+import RaisedButton from 'material-ui/RaisedButton';
 
 const clientsUrl = "http://localhost:8000/getclients";
-const sellUrl = "http://localhost:8000/sell";
 const orderUrl = "http://localhost:8000/order";
 const totalOrdersUrl = "http://localhost:8000/totalorders";
 
@@ -20,7 +22,8 @@ class Sales extends Component {
             clients: {},
             client: {},
             service: "",
-            totalOrders: 0
+            totalOrders: 0,
+            open: false
         }
     }
 
@@ -35,13 +38,16 @@ class Sales extends Component {
     }
 
     sell = (event) => {
-        $.post(sellUrl, {
-            id: this.state.client, 
+        $.post(orderUrl, {
+            clientId: this.state.client, 
+            serviceName: this.state.service,
             price: this.price.value,
-            service: this.state.service,
+            status: "Booked",
             date: new Date()
         });  
+        console.log(this.state.service + " is sold to : " + this.state.client + " for : " + this.price.value);
         event.preventDefault();
+
     }
 
     submitClient = (event) => {
@@ -63,11 +69,12 @@ class Sales extends Component {
         });
     };
     
-    return (// schetchik kajdoi uslugi
-        
+
+
+    return (
             <div>
                 <p> Продажи (Всего: {this.state.totalOrders.length}) </p>
-
+                
                 <form onSubmit={this.sell} >
 
                     <select onChange={this.submitClient} required>

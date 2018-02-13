@@ -87,7 +87,7 @@ class Controls extends Component {
         fetch(clientsUrl)
         .then(response => response.json())
         .then(data => this.setState({clients: data}))
-        .then(console.log("Clients database loaded"));
+        .then(console.log("Clients database loaded in -Contorls-"));
 
        // this.setState({clients: clients}); // delete potom
     }

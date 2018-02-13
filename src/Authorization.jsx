@@ -5,7 +5,12 @@ import Controls from './Controls';
 import AddClient from './AddClient';
 import Sales from './Sales';
 import Clients from './Clients';
+import Brain from './Brain';
 
+import AppBar from 'material-ui/AppBar';
+import Drawer from 'material-ui/Drawer';
+import MenuItem from 'material-ui/MenuItem';
+import RaisedButton from 'material-ui/RaisedButton';
 const adminUrl = "http://localhost:8000/getadmin";
 
 class Authorization extends Component {
@@ -13,7 +18,7 @@ class Authorization extends Component {
         super();
         this.state = {
             admin: {},
-            logined: false
+            logined: true // FALSE      DOLJNO BIT TUT !!!!!!!!!!!!!!! ETO MOZGI
         }
     }
 
@@ -31,14 +36,9 @@ class Authorization extends Component {
     }
 
   render() {
-      if (this.state.logined === true) {
-      return (<div> 
-                <Sales /> 
-                <AddClient />
-                <Controls />
-            </div>);
-      }
-    return (
+      if (this.state.logined === true) {return (<div> <Brain /> </div>);};
+
+        return (
             <div>
                 <p> Authorization </p>
                 <form onSubmit={this.signIn} >

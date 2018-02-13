@@ -13,7 +13,10 @@ import Clients from './Clients';
 
 const muiTheme = getMuiTheme({
     palette: {
-      textColor: blue500,
+      textColor: blue500
+    },
+    appBar: {
+      height: 50
     }
   });
 

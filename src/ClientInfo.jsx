@@ -11,7 +11,9 @@ import Subheader from 'material-ui/Subheader';
 import {blue500, red500, greenA200} from 'material-ui/styles/colors';
 import SvgIcon from 'material-ui/SvgIcon';
 import IconButton from 'material-ui/IconButton';
+
 import ClientServices from './ClientServices.jsx';
+import ClientOrders from './ClientOrders.jsx';
 
 const styleInfo = {
     height: 800,
@@ -38,7 +40,6 @@ class ClientInfo extends Component {
     }
 
   render() {
-    console.log(this.props.client);
     let showInfo;
     if (this.props.client) {
       showInfo =  <div>            
@@ -53,14 +54,11 @@ class ClientInfo extends Component {
     }
 
 
-  
-
-
     return (
-            <div >
-                    <Paper align="center" style={styleInfo}  rounded={false} >
+            <div>
+                    <Paper align="center"  rounded={false} >
                       {showInfo}
-                      <ClientServices client={this.props.client} />
+                      <ClientOrders client={this.props.client} />
                       <Divider inset={true} />
                     </Paper>
       
