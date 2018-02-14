@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-//import './Sales.css';
 import $ from 'jquery';
-import {showServices, SERVICES} from './Services';
-import AppBar from 'material-ui/AppBar';
-import Drawer from 'material-ui/Drawer';
+
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
+import TimePicker from 'material-ui/TimePicker';
+import DatePicker from 'material-ui/DatePicker';
+
+import {showServices, SERVICES} from './Services';
+
+
 
 const clientsUrl = "http://localhost:8000/getclients";
 const orderUrl = "http://localhost:8000/order";
@@ -23,7 +26,8 @@ class Sales extends Component {
             client: {},
             service: "",
             totalOrders: 0,
-            open: false
+            open: false,
+            value24: null
         }
     }
 
@@ -43,7 +47,10 @@ class Sales extends Component {
             serviceName: this.state.service,
             price: this.price.value,
             status: "Booked",
-            date: new Date()
+            date: this.state.date,
+            time: this.state.time,
+            reservationTime: new Date(),
+
         });  
         console.log(this.state.service + " is sold to : " + this.state.client + " for : " + this.price.value);
         event.preventDefault();
@@ -60,6 +67,13 @@ class Sales extends Component {
         event.preventDefault();
     }
 
+    pickTime = (event, input) => {
+        this.setState({time: input});
+    };
+
+    pickDate = (event, input) => {
+        this.setState({date: input});
+    };
 
   render() {
    const clients = [];
@@ -69,7 +83,6 @@ class Sales extends Component {
         });
     };
     
-
 
     return (
             <div>
@@ -88,6 +101,21 @@ class Sales extends Component {
                     </select>
 
                     <input type="text" placeholder="Цена" ref={(input) => this.price = input} required/>
+                    
+                    <DatePicker
+                        hintText="Нажми чтобы изменить дату"
+                        value={this.state.date}
+                        onChange={this.pickDate}
+                    />
+
+                    <TimePicker
+                        format="24hr"
+                        hintText="Нажми чтобы изменить время"
+                        value={this.state.time}
+                        onChange={this.pickTime}
+                    />
+
+
 
                     <input type="submit" value="Продать"/>
 

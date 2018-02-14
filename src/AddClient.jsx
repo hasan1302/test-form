@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './AddClient.css';
 import $ from 'jquery';
 
 const registerLink = "http://localhost:8000/addclient";

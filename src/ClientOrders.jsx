@@ -44,7 +44,7 @@ class CurrentOrders extends Component {
 
 
     render() {
-        console.log(this.props.client._id);
+       // console.log(this.props.client._id);
         let orders = [];
         if (this.state.orders.length>0) { 
             this.state.orders.map((element, i) => {

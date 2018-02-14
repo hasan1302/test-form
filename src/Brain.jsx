@@ -13,6 +13,7 @@ import Orders from './Orders.jsx';
 
 
 const clientsUrl = "http://localhost:8000/getclients";
+const ordersUrl = "http://localhost:8000/getorders";
 
 const styleAppBar = {
     fontFamily: 'Times New Roman',
@@ -32,6 +33,11 @@ class Brain extends Component {
         .then(response => response.json())
         .then(data => this.setState({clients: data}))
         .then(console.log("Clients database loaded"));
+
+        fetch(ordersUrl)
+        .then(response => response.json())
+        .then(data => this.setState({orders: data}))
+        .then(console.log("Active Orders database loaded"));
     }
 
     handleToggle = () => this.setState({open: !this.state.open});
@@ -42,7 +48,7 @@ class Brain extends Component {
     showClients = () => this.setState({view: <Clients clients={this.state.clients}/>, open: false });
     showSell = () => this.setState({view: <Sales clients={this.state.clients}/>, open: false });
     showAddClient = () => this.setState({view: <AddClient clients={this.state.clients}/>, open: false });
-    showSoon = () => this.setState({view: <Orders />, open: false });
+    showSoon = () => this.setState({view: <Orders orders={this.state.orders}/>, open: false });
     
   render() {
     return (
