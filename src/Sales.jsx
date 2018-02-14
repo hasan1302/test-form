@@ -91,12 +91,12 @@ class Sales extends Component {
                 <form onSubmit={this.sell} >
 
                     <select onChange={this.submitClient} required>
-                        <option disabled selected>  Выберите Клиента </option>
+                        <option disabled selected>  Выберите Клиента </option>
                         {clients}
                     </select>
 
                     <select onChange={this.submitService} required>
-                        <option disabled selected>  Выберите Услугу </option>
+                        <option disabled selected>  Выберите Услугу </option>
                         {showServices(SERVICES)}
                     </select>
 

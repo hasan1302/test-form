@@ -7,7 +7,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Subheader from 'material-ui/Subheader';
 import {List, ListItem} from 'material-ui/List';
 import ClientInfo from './ClientInfo.jsx';
-import SearchClient from './SearchClient.jsx';
+
 
 function searchName(name, clients){
     for (let i=0; i < clients.length; i++) {

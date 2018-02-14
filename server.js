@@ -85,4 +85,18 @@ app.post('/addclient', (req, res) => {
     })
   })
 
+  app.delete('/deleteorder', (req, res) => {
+    db.collection('orders').deleteOne({ 
+      status: "Booked" 
+    })
+    //.then(function(result) {
+   //   // process result
+   // })
+    console.log('Deleted order : ' + " ");
+  });
+
+  app.put('/orderdone', (req, res) => {
+    console.log("Order done!")
+  });
+
 app.updateOne

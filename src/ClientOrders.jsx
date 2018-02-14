@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
 //import './Sales.css';
 import $ from 'jquery';
-import {showServices, SERVICES} from './Services';
-import AppBar from 'material-ui/AppBar';
-import Drawer from 'material-ui/Drawer';
-import MenuItem from 'material-ui/MenuItem';
-import RaisedButton from 'material-ui/RaisedButton';
 
 const clientsUrl = "http://localhost:8000/getclients";
 const ordersUrl = "http://localhost:8000/getorders";
@@ -29,8 +24,6 @@ class CurrentOrders extends Component {
         .then(response => response.json())
         .then(data => this.setState({clients: data}))
         .then(console.log("Clients Database Loaded"));
-
-
         
         fetch(ordersUrl) //Upload all orders
         .then(response => response.json())

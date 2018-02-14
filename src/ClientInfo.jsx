@@ -1,18 +1,7 @@
 import React, { Component } from 'react';
-import Paper from 'material-ui/Paper';
 import $ from 'jquery';
-//import Typography from 'material-ui/Typography';
-import TimePicker from 'material-ui/TimePicker';
-import DatePicker from 'material-ui/DatePicker';
-import {Tabs, Tab} from 'material-ui/Tabs';
+import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
-import RaisedButton from 'material-ui/RaisedButton';
-import Subheader from 'material-ui/Subheader';
-import {blue500, red500, greenA200} from 'material-ui/styles/colors';
-import SvgIcon from 'material-ui/SvgIcon';
-import IconButton from 'material-ui/IconButton';
-
-import ClientServices from './ClientServices.jsx';
 import ClientOrders from './ClientOrders.jsx';
 
 const styleInfo = {

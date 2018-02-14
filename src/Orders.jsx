@@ -8,6 +8,10 @@ class Orders extends Component {
         }
     }
 
+    sell =() => {
+
+    }
+
   render() {
     const orders = [];
     if (this.props.orders) {
@@ -15,8 +19,8 @@ class Orders extends Component {
             orders.push(
                 <div key={i}>
                     <p style={{ backgroundColor: el.status==="Booked" ? "green" : "red" }}> 
-                        {el.serviceName} {el.price} {el.date}
-                        <button>X</button> 
+                        {el.serviceName} {el.price} {el.date} {el.time}
+                        <button onClick={this.sell}>X</button> 
                     </p> 
                 </div>
                 );

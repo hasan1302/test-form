@@ -5,7 +5,6 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {blue500} from 'material-ui/styles/colors';
 import AppBar from 'material-ui/AppBar';
 
-import Controls from './Controls';
 import AddClient from './AddClient';
 import Sales from './Sales';
 import Authorization from './Authorization';
