@@ -6,7 +6,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TimePicker from 'material-ui/TimePicker';
 import DatePicker from 'material-ui/DatePicker';
 
-import {showServices, SERVICES} from './Services';
+import {showServices, SERVICES} from './servicesNames.js';
 
 
 

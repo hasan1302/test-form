@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
-
 import Brain from './Brain';
 
 const adminUrl = "http://localhost:8000/getadmin";
@@ -10,7 +9,7 @@ class Authorization extends Component {
         super();
         this.state = {
             admin: {},
-            logined: false // FALSE      DOLJNO BIT TUT !!!!!!!!!!!!!!! ETO MOZGI
+            logined: true // FALSE      DOLJNO BIT TUT !!!!!!!!!!!!!!! ETO MOZGI
         }
     }
 
