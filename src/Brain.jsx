@@ -12,14 +12,6 @@ import AddClient from './AddClient.jsx';
 import Orders from './Orders.jsx';
 
 
-const clientsUrl = "http://localhost:8000/getclients";
-const ordersUrl = "http://localhost:8000/getorders";
-
-const styleAppBar = {
-    fontFamily: 'Times New Roman',
-    fontSize: '650%'
-}
-
 class Brain extends Component {
     constructor() {
         super();
@@ -28,27 +20,14 @@ class Brain extends Component {
         }
     }
 
-    componentDidMount() {
-        fetch(clientsUrl)
-        .then(response => response.json())
-        .then(data => this.setState({clients: data}))
-        .then(console.log("Clients database loaded"));
-
-        fetch(ordersUrl)
-        .then(response => response.json())
-        .then(data => this.setState({orders: data}))
-        .then(console.log("Active Orders database loaded"));
-    }
-
     handleToggle = () => this.setState({open: !this.state.open});
     handleClose = () => this.setState({open: false});
 
-
     showMain = () => this.setState({view: "!!!!!!!!!!!!!!!!!!!!!!!!Main!!!!!!!!!!!!!!!!!!!!!", open: false});
-    showClients = () => this.setState({view: <Clients clients={this.state.clients}/>, open: false });
-    showSell = () => this.setState({view: <Sales clients={this.state.clients}/>, open: false });
-    showAddClient = () => this.setState({view: <AddClient clients={this.state.clients}/>, open: false });
-    showSoon = () => this.setState({view: <Orders orders={this.state.orders}/>, open: false });
+    showClients = () => this.setState({view: <Clients clients={this.props.clients}/>, open: false });
+    showSell = () => this.setState({view: <Sales clients={this.props.clients} orders={this.props.orders}/>, open: false });
+    showAddClient = () => this.setState({view: <AddClient clients={this.props.clients}/>, open: false });
+    showSoon = () => this.setState({view: <Orders clients={this.props.clients} orders={this.props.orders}/>, open: false });
     
   render() {
     return (

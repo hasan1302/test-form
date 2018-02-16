@@ -2,12 +2,9 @@ import React, { Component } from 'react';
 import $ from 'jquery';
 
 import MenuItem from 'material-ui/MenuItem';
-import RaisedButton from 'material-ui/RaisedButton';
 import TimePicker from 'material-ui/TimePicker';
 import DatePicker from 'material-ui/DatePicker';
-
-import {showServices, SERVICES} from './servicesNames.js';
-
+import SelectField from 'material-ui/SelectField';
 
 
 const clientsUrl = "http://localhost:8000/getclients";
@@ -15,6 +12,25 @@ const orderUrl = "http://localhost:8000/order";
 const totalOrdersUrl = "http://localhost:8000/totalorders";
 
 
+export const SERVICES = [
+    "Наращивание ресниц",
+    "Чистка лица",
+    "Пилинг",
+    "Пилинг продвинутый",
+    "Отбеливание очков",
+    "Омовение"
+]//.map((element, i) => {
+//    this.push(<option key={i} value={element}> {element.name} </option>);
+//});
+
+function showServices(obj){
+    const services = [];
+    obj.map((element, i) => {
+        return services.push(<option key={i} value={element}> {element} </option>);
+    });
+    return services;
+
+}
 
 
 class Sales extends Component {
@@ -22,37 +38,26 @@ class Sales extends Component {
     constructor() {
         super();
         this.state = {
-            clients: {},
+            orders: {},
             client: {},
-            service: "",
-            totalOrders: 0,
-            open: false,
-            value24: null
+            service: ""
         }
     }
 
-    componentDidMount() {
-        fetch(clientsUrl) //Upload all clients from database
-        .then(response => response.json())
-        .then(data => this.setState({clients: data}));
-        
-        fetch(totalOrdersUrl) //Upload all orders
-        .then(response => response.json())
-        .then(data => this.setState({totalOrders: data}));
-    }
-
     sell = (event) => {
+        let time = this.state.time;
+        let date = this.state.date;
+        date.setHours(time.getHours());
+        date.setMinutes(time.getMinutes());
         $.post(orderUrl, {
             clientId: this.state.client, 
             serviceName: this.state.service,
             price: this.price.value,
             status: "Booked",
-            date: this.state.date,
-            time: this.state.time,
+            date: date,
             reservationTime: new Date(),
-
         });  
-        console.log(this.state.service + " is sold to : " + this.state.client + " for : " + this.price.value);
+        console.log(this.state.service + "  was sold to :  " + this.state.client + "  for :  " + this.price.value);
         event.preventDefault();
 
     }
@@ -77,8 +82,8 @@ class Sales extends Component {
 
   render() {
    const clients = [];
-    if (this.state.clients.length>0) { 
-        this.state.clients.map((element, i) => {
+    if (this.props.clients.length>0) { 
+        this.props.clients.map((element, i) => {
             clients.push(<option key={i} value={element._id}> {element.name} </option>);
         });
     };
@@ -86,9 +91,8 @@ class Sales extends Component {
 
     return (
             <div>
-                <p> Продажи (Всего: {this.state.totalOrders.length}) </p>
-                
                 <form onSubmit={this.sell} >
+
 
                     <select onChange={this.submitClient} required>
                         <option disabled selected>  Выберите Клиента </option>
@@ -102,25 +106,12 @@ class Sales extends Component {
 
                     <input type="text" placeholder="Цена" ref={(input) => this.price = input} required/>
                     
-                    <DatePicker
-                        hintText="Нажми чтобы изменить дату"
-                        value={this.state.date}
-                        onChange={this.pickDate}
-                    />
-
-                    <TimePicker
-                        format="24hr"
-                        hintText="Нажми чтобы изменить время"
-                        value={this.state.time}
-                        onChange={this.pickTime}
-                    />
-
-
+                    <DatePicker hintText="Нажми чтобы изменить дату" value={this.state.date} onChange={this.pickDate}/>
+                    <TimePicker format="24hr" hintText="Нажми чтобы изменить время" value={this.state.time} onChange={this.pickTime}/>
 
                     <input type="submit" value="Продать"/>
 
                 </form>
-
             </div>
     );
   }

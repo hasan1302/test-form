@@ -52,7 +52,7 @@ class Clients extends Component {
         let clientsNames = [];
         if (this.props.clients.length > 0) {
             this.props.clients.map((el, i) => {
-                if (this.state.clientName === el.name) {
+                if (this.state.clientName.toLocaleLowerCase() === el.name.toLocaleLowerCase()) {
                     clientsNames.push(<ListItem align="center" onClick={this.chooseClient.bind(this, el)}  key={i} value={el.name} primaryText={el.name}/>); 
                 }
             });                        

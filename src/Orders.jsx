@@ -19,7 +19,7 @@ class Orders extends Component {
             orders.push(
                 <div key={i}>
                     <p style={{ backgroundColor: el.status==="Booked" ? "green" : "red" }}> 
-                        {el.serviceName} {el.price} {el.date} {el.time}
+                        {el.serviceName} {el.price} {el.date} {el.clientId}
                         <button onClick={this.sell}>X</button> 
                     </p> 
                 </div>
@@ -27,7 +27,9 @@ class Orders extends Component {
         });
     }
     orders.sort((a, b) => {
-        return new Date(a.date) - new Date(b.date);
+        console.log((new Date(a.date) - new Date(b.date))/(60*60*24*1000))
+        return ( (new Date(a.date) - new Date(b.date))/(60*60*24*1000) )
+       // return new Date(a.date) - new Date(b.date);
       });
 
         return (// <p> Продажи (Всего: {this.state.totalOrders.length}) </p>

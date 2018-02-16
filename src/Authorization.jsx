@@ -3,12 +3,16 @@ import $ from 'jquery';
 import Brain from './Brain';
 
 const adminUrl = "http://localhost:8000/getadmin";
+const clientsUrl = "http://localhost:8000/getclients";
+const ordersUrl = "http://localhost:8000/getorders";
 
 class Authorization extends Component {
     constructor() {
         super();
         this.state = {
             admin: {},
+            clients: {},
+            orders: {},
             logined: true // FALSE      DOLJNO BIT TUT !!!!!!!!!!!!!!! ETO MOZGI
         }
     }
@@ -17,6 +21,16 @@ class Authorization extends Component {
         fetch(adminUrl)
         .then(response => response.json())
         .then(data => this.setState({admin: data}));
+
+        fetch(clientsUrl)
+        .then(response => response.json())
+        .then(data => this.setState({clients: data}))
+        .then(console.log("Clients database loaded"));
+
+        fetch(ordersUrl)
+        .then(response => response.json())
+        .then(data => this.setState({orders: data}))
+        .then(console.log("Active Orders database loaded"));
     }
 
     signIn = (event) => {
@@ -27,7 +41,7 @@ class Authorization extends Component {
     }
 
   render() {
-      if (this.state.logined === true) {return (<div> <Brain /> </div>);};
+      if (this.state.logined === true) {return (<div> <Brain clients={this.state.clients} orders={this.state.orders}/> </div>);};
 
         return (
             <div>
