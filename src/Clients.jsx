@@ -8,6 +8,9 @@ import Subheader from 'material-ui/Subheader';
 import {List, ListItem} from 'material-ui/List';
 import ClientInfo from './ClientInfo.jsx';
 
+const styleClients = {width: 400,marginRight: 12,display: "inline-block"};
+const styleInfo = {display: "inline-block"};
+const styleAll = {height: 1200,width: 950,};
 
 function searchName(name, clients){
     for (let i=0; i < clients.length; i++) {
@@ -15,14 +18,8 @@ function searchName(name, clients){
            return clients[i];
         }
     }
-    //return;
 }
 
-const emptyClient = {name: "",phone: "",partner: "",registerDate: "",services: [],servicesDone: [],description: ""};
-
-const styleClients = {width: 400,marginRight: 12,display: "inline-block"};
-const styleInfo = {display: "inline-block"};
-const styleAll = {height: 1200,width: 950,};
 
 class Clients extends Component {
     constructor() {
@@ -66,7 +63,7 @@ class Clients extends Component {
     }
 
   render() {
-    const showClientInfo = this.state.client.name ? <ClientInfo client={this.state.client} /> : <ClientInfo client={emptyClient} />;
+    const showClientInfo = this.state.client.name ? <ClientInfo client={this.state.client} order={this.props.orders}/> : null ;
     return (
             <div>
                     <div>
@@ -77,13 +74,11 @@ class Clients extends Component {
                             { this.state.clientName.length < 1 ? this.showAllClients() : this.showSearchedClient()}
                         </Paper>
                     </div>
-
-                        
+                      
                     <div style={styleInfo}>
                         {showClientInfo}
                     </div>
-
-                
+             
             </div>
     );
   }

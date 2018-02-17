@@ -80,7 +80,7 @@ app.post('/addclient', (req, res) => {
     res.header("Access-Control-Allow-Origin", "*");
     db.collection('orders').updateOne(req.body, (err, result) => {
       if (err) return console.log(err);
-      console.log('Selling complete');
+      console.log('Order success');
       //res.redirect('http://localhost:3000/');
     })
   })

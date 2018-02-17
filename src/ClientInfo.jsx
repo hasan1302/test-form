@@ -22,6 +22,7 @@ const styleInfo = {
       fontWeight: 400,
     },
   };
+  
 
 class ClientInfo extends Component {
     constructor() {
@@ -47,7 +48,7 @@ class ClientInfo extends Component {
             <div>
                     <Paper align="center"  rounded={false} >
                       {showInfo}
-                      <ClientOrders client={this.props.client} />
+                      <ClientOrders client={this.props.client} orders={this.props.orders}/>
                       <Divider inset={true} />
                     </Paper>
       
