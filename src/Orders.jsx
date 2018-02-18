@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
 
+const orderSuccessUrl = "http://localhost:8000/ordersuccess";
+
 class Orders extends Component {
     constructor() {
         super();
@@ -8,8 +10,12 @@ class Orders extends Component {
         }
     }
 
-    sell =() => {
-
+    done =(event) => {
+        $.post(orderSuccessUrl, {
+            clientId: event.target.value, 
+            status: "Done",
+        });  
+        console.log(event.target.value + " done");
     }
 
   render() {
@@ -20,16 +26,14 @@ class Orders extends Component {
                 <div key={i}>
                     <p style={{ backgroundColor: el.status==="Booked" ? "green" : "red" }}> 
                         {el.serviceName} {el.price} {el.date} {el.clientId}
-                        <button onClick={this.sell}>X</button> 
+                        <button value={el.clientId} onClick={this.done}>X</button> 
                     </p> 
                 </div>
                 );
         });
     }
     orders.sort((a, b) => {
-        console.log((new Date(a.date) - new Date(b.date))/(60*60*24*1000))
-        return ( (new Date(a.date) - new Date(b.date))/(60*60*24*1000) )
-       // return new Date(a.date) - new Date(b.date);
+        return new Date(a.date) - new Date(b.date);
       });
 
         return (// <p> Продажи (Всего: {this.state.totalOrders.length}) </p>

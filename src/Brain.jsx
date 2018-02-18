@@ -24,7 +24,7 @@ class Brain extends Component {
     handleClose = () => this.setState({open: false});
 
     showMain = () => this.setState({view: "!!!!!!!!!!!!!!!!!!!!!!!!Main!!!!!!!!!!!!!!!!!!!!!", open: false});
-    showClients = () => this.setState({view: <Clients clients={this.props.clients}/>, open: false });
+    showClients = () => this.setState({view: <Clients clients={this.props.clients} orders={this.props.orders}/>, open: false });
     showSell = () => this.setState({view: <Sales clients={this.props.clients} orders={this.props.orders}/>, open: false });
     showAddClient = () => this.setState({view: <AddClient clients={this.props.clients}/>, open: false });
     showSoon = () => this.setState({view: <Orders clients={this.props.clients} orders={this.props.orders}/>, open: false });

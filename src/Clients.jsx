@@ -63,7 +63,7 @@ class Clients extends Component {
     }
 
   render() {
-    const showClientInfo = this.state.client.name ? <ClientInfo client={this.state.client} order={this.props.orders}/> : null ;
+    const showClientInfo = this.state.client.name ? <ClientInfo client={this.state.client} orders={this.props.orders}/> : null ;
     return (
             <div>
                     <div>

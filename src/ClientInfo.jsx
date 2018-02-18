@@ -25,10 +25,6 @@ const styleInfo = {
   
 
 class ClientInfo extends Component {
-    constructor() {
-        super();
-    }
-
   render() {
     let showInfo;
     if (this.props.client) {
