@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
 import Brain from './Brain';
+import { loadClients, loadOrders, loadAdmin } from './loadData';
 
 const adminUrl = "http://localhost:8000/getadmin";
-const clientsUrl = "http://localhost:8000/getclients";
-const ordersUrl = "http://localhost:8000/getorders";
 
 class Authorization extends Component {
     constructor() {
@@ -13,24 +12,16 @@ class Authorization extends Component {
             admin: {},
             clients: {},
             orders: {},
-            logined: true // FALSE      DOLJNO BIT TUT !!!!!!!!!!!!!!! ETO MOZGI
+            logined: false // FALSE      DOLJNO BIT TUT !!!!!!!!!!!!!!! ETO MOZGI
         }
     }
 
     componentDidMount() {
-        fetch(adminUrl)
-        .then(response => response.json())
-        .then(data => this.setState({admin: data}));
+     fetch(adminUrl)
+     .then(response => response.json())
+     .then(data => data = data)
+     .then(data => this.setState({admin: data}));
 
-        fetch(clientsUrl)
-        .then(response => response.json())
-        .then(data => this.setState({clients: data}))
-        .then(console.log("Clients database loaded"));
-
-        fetch(ordersUrl)
-        .then(response => response.json())
-        .then(data => this.setState({orders: data}))
-        .then(console.log("Active Orders database loaded"));
     }
 
     signIn = (event) => {

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
 
+const clientsUrl = "http://localhost:8000/getclients";
+const ordersUrl = "http://localhost:8000/getorders";
 const orderSuccessUrl = "http://localhost:8000/ordersuccess";
 
 class Orders extends Component {
