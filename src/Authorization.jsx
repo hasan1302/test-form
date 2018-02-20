@@ -18,13 +18,13 @@ class Authorization extends Component {
             orders: {},
             logined: true // FALSE      DOLJNO BIT TUT !!!!!!!!!!!!!!! ETO MOZGI
         };
-        
+
     }
 
     componentDidMount() {
-        fetch(adminUrl).then(response => response.json()).then(data => this.setState({admin: data}));
-        fetch(clientsUrl).then(response => response.json()).then(data => this.setState({clients: data}));
-        fetch(ordersUrl).then(response => response.json()).then(data => this.setState({orders: data}));
+        loadAdmin().then(data => this.setState({admin: data}));
+        loadClients().then(data => this.setState({ clients: data }));
+        loadOrders().then(data => this.setState({orders: data}));
     }
 
     setLogin = (event) => {
@@ -50,7 +50,7 @@ class Authorization extends Component {
                 <p> Пройдите процесс авторизации ваша милость </p>
                 <TextField hintText="Логин" value={this.state.valueLogin} onChange={this.setLogin}/>
                 <TextField hintText="Пароль" value={this.state.valuePassword} onChange={this.setPassword}/>
-                <RaisedButton label="Войти" primary={true} onClick={this.signIn}/> 
+                <RaisedButton label="Войти" primary={true} onClick={this.signIn}/>
             </div>
     );
   }
