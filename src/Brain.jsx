@@ -16,30 +16,29 @@ class Brain extends Component {
     constructor() {
         super();
         this.state = {
-            open: false
+            open: false,
         }
     }
 
     handleToggle = () => this.setState({open: !this.state.open});
     handleClose = () => this.setState({open: false});
 
-    showMain = () => this.setState({view: "!!!!!!!!!!!!!!!!!!!!!!!!Main!!!!!!!!!!!!!!!!!!!!!", open: false});
+    showOrders = () => this.setState({view: <Orders clients={this.props.clients} orders={this.props.orders}/>, open: false });
     showClients = () => this.setState({view: <Clients clients={this.props.clients} orders={this.props.orders}/>, open: false });
     showSell = () => this.setState({view: <Sales clients={this.props.clients} orders={this.props.orders}/>, open: false });
     showAddClient = () => this.setState({view: <AddClient clients={this.props.clients}/>, open: false });
-    showSoon = () => this.setState({view: <Orders clients={this.props.clients} orders={this.props.orders}/>, open: false });
+
     
   render() {
     return (
             <div>
-                <AppBar title="Главная" iconClassNameRight="muidocs-icon-navigation-expand-more" onClick={this.handleToggle}> </AppBar>
+                <AppBar title="" iconClassNameRight="muidocs-icon-navigation-expand-more" onClick={this.handleToggle}> </AppBar>
                 {this.state.view}
                 <Drawer docked={false} width={500} open={this.state.open} onRequestChange={(open) => this.setState({open})}>
-                   <MenuItem onClick={this.showMain}>Главная</MenuItem>
+                   <MenuItem onClick={this.showOrders}>Главная</MenuItem>
                    <MenuItem onClick={this.showClients}>Клиенты</MenuItem>
                    <MenuItem onClick={this.showSell}>Продать </MenuItem>
                    <MenuItem onClick={this.showAddClient}>Добавить клиента</MenuItem>
-                   <MenuItem onClick={this.showSoon}>Все заказы</MenuItem>
                 </Drawer>
             </div>
     );

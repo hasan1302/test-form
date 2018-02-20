@@ -29,7 +29,7 @@ class ClientOrders extends Component {
         };
         
           return (
-              <div> 
+              <div align="center"> 
                  {orders}
               </div>
           )

@@ -1,23 +1,50 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
 
-const registerLink = "http://localhost:8000/addclient";
+import Divider from 'material-ui/Divider';
+import RaisedButton from 'material-ui/RaisedButton';
+import MenuItem from 'material-ui/MenuItem';
+import SelectField from 'material-ui/SelectField';
+import TextField from 'material-ui/TextField';
+
+const addClientUrl = "http://localhost:8000/addclient";
+
+
+
+
+export const DEF_PARTNERS = [
+    "Юла", "Авито", "Вконтакте", "Инстаграм", "ИнстаХарам", "ДагФМ"
+];
+
+function showPartners(obj){
+    const partners = [];
+    obj.map((element, i) => {
+        return partners.push(<option key={i} value={element}> {element} </option>);
+    });
+    return partners;
+}
+
 
 function nameIsValid(name) {
     return /^[a-zA-Z]+$/.test(name);
 }
+
 
 class AddClient extends Component {
 
     constructor() {
         super();
         this.state = {
-            partner: ""
+            partner: "",
+            valuePartner: 0,
+            valueName: "",
+            valuePhone: "",
+            valueDescription: ""
         }
     }
 
   register = (name, phone, partner, description) => {
-    $.post(registerLink, {
+    $.post(addClientUrl, {
         name: name, 
         phone: phone,
         partner: partner,
@@ -37,30 +64,45 @@ class AddClient extends Component {
       event.preventDefault();
   }
 
-  submitPartner = (event) => {
-    this.setState({partner: event.target.value});
+
+  changePartner = (event, index, value) => {
+    this.setState({partner: value, valuePartner: value});
     event.preventDefault();
-  }
+};
+
+
+setName = (event) => {
+    this.setState({valueName: event.target.value})
+}
+setPhone = (event) => {
+    this.setState({valuePhone: event.target.value})
+}
+setDescription = (event) => {
+    this.setState({valueDescription: event.target.value})
+}
 
   render() {
+
     return (
-            <div>
-                <p> Регистрация </p>
-                <form onSubmit={this.addClientToDatabase} >
+            <div align="center">
 
-                    <input type="text" placeholder="Имя" ref={(input) => this.name = input} required/>
-                    <input type="text" placeholder="Телефон" ref={(input) => this.phone = input} required/>
-                    <input type="text" placeholder="Примечание" ref={(input) => this.description = input}/>
-                    <input type="submit" value="Зарегистрировать"/>
+                <p> Добавить нового любимчика </p>
+                <div align="left">
+                <TextField hintText="Имя" value={this.state.valueNamen} onChange={this.setName}/>
+                <Divider />
+                <TextField hintText="Телефон" value={this.state.valuePhone} onChange={this.setPhone}/>
+                <Divider />
+                <TextField hintText="Примечание" value={this.state.valueDescription} onChange={this.setDescription}/>
+                <Divider />
 
-                    <select onChange={this.submitPartner} required>
-                        <option disabled selected>  Выберите Партнёра </option>
-                        <option value="Yula"> Юла </option>
-                        <option value="Avito"> Авито </option>
-                        <option value="Radio"> Сарафанное радио </option>
-                    </select>
 
-                </form>
+                <SelectField floatingLabelText="Выбери Партнёра" value={this.state.valuePartner} onChange={this.changePartner}>
+                    {showPartners(DEF_PARTNERS)}
+                </SelectField>
+                </div>
+                <RaisedButton label="Добавить любимчика" primary={true} onClick={this.addClientToDatabase}/> 
+
+
             </div>
     );
   }

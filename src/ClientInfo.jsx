@@ -28,7 +28,7 @@ class ClientInfo extends Component {
   render() {
     let showInfo;
     if (this.props.client) {
-      showInfo =  <div>            
+      showInfo =  <div align="center">            
                     <h1> {this.props.client.name} </h1>
                     <Divider inset={true} />
                     <h3>Телефон: {this.props.client.phone}</h3>
@@ -42,7 +42,7 @@ class ClientInfo extends Component {
 
     return (
             <div>
-                    <Paper align="center"  rounded={false} >
+                    <Paper style={{height: 700, overflow: 'auto', width: 700, marginLeft: 1}} rounded={false} >
                       {showInfo}
                       <ClientOrders client={this.props.client} orders={this.props.orders}/>
                       <Divider inset={true} />

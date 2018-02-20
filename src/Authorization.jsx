@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
-import $ from 'jquery';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
+
 import Brain from './Brain';
 import { loadClients, loadOrders, loadAdmin } from './loadData';
 
 const adminUrl = "http://localhost:8000/getadmin";
+const clientsUrl = "http://localhost:8000/getclients";
+const ordersUrl = "http://localhost:8000/getorders";
 
 class Authorization extends Component {
     constructor() {
@@ -12,20 +16,27 @@ class Authorization extends Component {
             admin: {},
             clients: {},
             orders: {},
-            logined: false // FALSE      DOLJNO BIT TUT !!!!!!!!!!!!!!! ETO MOZGI
-        }
+            logined: true // FALSE      DOLJNO BIT TUT !!!!!!!!!!!!!!! ETO MOZGI
+        };
+        
     }
 
     componentDidMount() {
-     fetch(adminUrl)
-     .then(response => response.json())
-     .then(data => data = data)
-     .then(data => this.setState({admin: data}));
+        fetch(adminUrl).then(response => response.json()).then(data => this.setState({admin: data}));
+        fetch(clientsUrl).then(response => response.json()).then(data => this.setState({clients: data}));
+        fetch(ordersUrl).then(response => response.json()).then(data => this.setState({orders: data}));
+    }
 
+    setLogin = (event) => {
+        this.setState({valueLogin: event.target.value})
+    }
+    setPassword = (event) => {
+        this.setState({valuePassword: event.target.value})
     }
 
     signIn = (event) => {
-        if ((this.state.admin[0].login === this.login.value) && (this.state.admin[0].password === this.password.value)) {
+        if ((this.state.admin[0].login === this.state.valueLogin) && (this.state.admin[0].password === this.state.valuePassword)) {
+            console.log("ok")
             this.setState({logined: true})
         };
         event.preventDefault();
@@ -35,13 +46,11 @@ class Authorization extends Component {
       if (this.state.logined === true) {return (<div> <Brain clients={this.state.clients} orders={this.state.orders}/> </div>);};
 
         return (
-            <div>
-                <p> Authorization </p>
-                <form onSubmit={this.signIn} >
-                    <input type="text" placeholder="Логин" ref={(input) => this.login = input} required/>
-                    <input type="text" placeholder="Пароль" ref={(input) => this.password = input} required/>
-                    <input type="submit" value="Войти"/>
-                </form>
+            <div align="center">
+                <p> Пройдите процесс авторизации ваша милость </p>
+                <TextField hintText="Логин" value={this.state.valueLogin} onChange={this.setLogin}/>
+                <TextField hintText="Пароль" value={this.state.valuePassword} onChange={this.setPassword}/>
+                <RaisedButton label="Войти" primary={true} onClick={this.signIn}/> 
             </div>
     );
   }

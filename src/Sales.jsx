@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
 
+import Divider from 'material-ui/Divider';
 import RaisedButton from 'material-ui/RaisedButton';
 import MenuItem from 'material-ui/MenuItem';
 import TimePicker from 'material-ui/TimePicker';
@@ -14,7 +15,7 @@ const style = {
     margin: 12,
   };
 
-export const DEF_SERVICES = [
+const DEF_SERVICES = [
     "Наращивание ресниц",
     "Чистка лица",
     "Пилинг",
@@ -100,15 +101,17 @@ class Sales extends Component {
                 <SelectField floatingLabelText="Выбрать клиента" value={this.state.valueClient} onChange={this.changeClient}>
                     {clients}
                 </SelectField>
-
+                <Divider />
                 <SelectField floatingLabelText="Выбрать услугу" value={this.state.valueService} onChange={this.submitService}>
                     {showServices(DEF_SERVICES)}
                 </SelectField>
-
+                <Divider />
                 <TextField hintText="Цена" value={this.state.valuePrice} onChange={this.setPrice}/>
-       
+                <Divider />
                 <DatePicker hintText="Нажми чтобы изменить дату" value={this.state.date} onChange={this.pickDate}/>
+                <Divider />
                 <TimePicker format="24hr" hintText="Нажми чтобы изменить время" value={this.state.time} onChange={this.pickTime}/>
+                <Divider />
 
                 <RaisedButton label="Продать" primary={true} style={style} onClick={this.sell}/>    
             </div>

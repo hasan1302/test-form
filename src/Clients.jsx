@@ -8,6 +8,9 @@ import Subheader from 'material-ui/Subheader';
 import {List, ListItem} from 'material-ui/List';
 import ClientInfo from './ClientInfo.jsx';
 
+const clientsUrl = "http://localhost:8000/getclients";
+const ordersUrl = "http://localhost:8000/getorders";
+
 const styleClients = {width: 400,marginRight: 12,display: "inline-block"};
 const styleInfo = {display: "inline-block"};
 const styleAll = {height: 1200,width: 950,};
@@ -29,6 +32,10 @@ class Clients extends Component {
             clientName: "",
             view: []
         }
+    }
+
+    componentDidMount() {
+        fetch(clientsUrl).then(response => response.json()).then(data => this.setState({clients: data}));
     }
 
     chooseClient = (client) => {
@@ -66,16 +73,15 @@ class Clients extends Component {
     const showClientInfo = this.state.client.name ? <ClientInfo client={this.state.client} orders={this.props.orders}/> : null ;
     return (
             <div>
-                    <div>
-                        <Paper style={{maxHeight: 400, overflow: 'auto'}} rounded={false} >
+                    <div style={{display: "inline-block"}}>
+                        <Paper style={{height: 700, overflow: 'auto', width: 300}} rounded={false} >
                             <Subheader align="center">Клиенты</Subheader>
-                            <input type="text" onChange={this.changeName}/>
                             <Divider inset={true} />
                             { this.state.clientName.length < 1 ? this.showAllClients() : this.showSearchedClient()}
                         </Paper>
                     </div>
                       
-                    <div style={styleInfo}>
+                    <div style={{display: "inline-block"}}>
                         {showClientInfo}
                     </div>
              
@@ -83,6 +89,10 @@ class Clients extends Component {
     );
   }
 }
+/*
+                            <input type="text" onChange={this.changeName}/>
+
+*/
 
 
 export default Clients;
