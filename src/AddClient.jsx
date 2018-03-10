@@ -1,49 +1,58 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
 
-import Divider from 'material-ui/Divider';
-import RaisedButton from 'material-ui/RaisedButton';
-import MenuItem from 'material-ui/MenuItem';
-import SelectField from 'material-ui/SelectField';
+//import Divider from 'material-ui/Divider';
+import Button from 'material-ui/Button';
+import Icon from 'material-ui/Icon';
+import { FormControl, FormHelperText } from 'material-ui/Form';
+import Input, { InputLabel } from 'material-ui/Input';
+import Select from 'material-ui/Select';
 import TextField from 'material-ui/TextField';
+import Grid from 'material-ui/Grid';
+import withStyles from 'material-ui/styles/withStyles';
 
 const addClientUrl = "http://localhost:8000/addclient";
 
+const styles = theme => ({
+    root: {
+        flexGrow: 1,
+    },
+    button: {
+      margin: theme.spacing.unit,
+    },
+    container: {
+        display: 'flex',
+        flexWrap: 'wrap',
+    },
+    textField: {
+        marginLeft: theme.spacing.unit,
+        marginRight: theme.spacing.unit,
+        width: 200,
+    },
 
+    formControl: {
+        margin: theme.spacing.unit,
+        minWidth: 200,
+        width: 200
+      },
+    leftIcon: {
+      marginRight: theme.spacing.unit,
+    },
+    rightIcon: {
+      marginLeft: theme.spacing.unit,
+    },
+  });
 
-
-export const DEF_PARTNERS = [
+const DEF_PARTNERS = [
     "Юла", "Авито", "Вконтакте", "Инстаграм", "ИнстаХарам", "ДагФМ"
 ];
 
-function showPartners(obj){
-    const partners = [];
-    obj.map((element, i) => {
-        return partners.push(<option key={i} value={element}> {element} </option>);
-    });
-    return partners;
-}
+const showPartners = () => 
+DEF_PARTNERS.map((el, i) => {
+    return <option key={i} value={el}>{el}</option>
+});
 
-
-function nameIsValid(name) {
-    return /^[a-zA-Z]+$/.test(name);
-}
-
-
-class AddClient extends Component {
-
-    constructor() {
-        super();
-        this.state = {
-            partner: "",
-            valuePartner: 0,
-            valueName: "",
-            valuePhone: "",
-            valueDescription: ""
-        }
-    }
-
-  register = (name, phone, partner, description) => {
+function registerClient(name, phone, partner, description="Без примечаний") {
     $.post(addClientUrl, {
         name: name, 
         phone: phone,
@@ -51,61 +60,99 @@ class AddClient extends Component {
         description: description,
         registerDate: new Date()
     });  
-    console.log("registered client : " + name);
-  }
+    alert("registered client : " + name);
+}
+
+function nameIsValid(name) {
+    return /^[a-zA-Z]+$/.test(name);
+}
+
+
+class AddClient extends Component {
+    state = {
+        partner: "",
+        name: "",
+        phone: "",
+        description: ""
+    };
 
   addClientToDatabase = (event) => {
-      const name = this.name.value;
-      const phone = this.phone.value;
-      const description = this.description.value || "Без примечаний";
-      if ((nameIsValid(name)) && (!isNaN.phone) && (this.state.partner.length > 0)) {
-          this.register(name, phone, this.state.partner, description);
+      if ((nameIsValid(this.state.name)) && (!isNaN(this.state.phone)) && (this.state.partner.length > 0)) {
+          registerClient(this.state.name, this.state.phone, this.state.partner, this.state.description);
+          this.setState({name: "", phone: "", partner: "", description: ""});
       };
-      event.preventDefault();
-  }
+  };
 
-
-  changePartner = (event, index, value) => {
-    this.setState({partner: value, valuePartner: value});
-    event.preventDefault();
-};
-
-
-setName = (event) => {
-    this.setState({valueName: event.target.value})
-}
-setPhone = (event) => {
-    this.setState({valuePhone: event.target.value})
-}
-setDescription = (event) => {
-    this.setState({valueDescription: event.target.value})
-}
+set = name => event => {
+    this.setState({ [name]: event.target.value });
+  };
 
   render() {
-
+    const { classes } = this.props;
     return (
-            <div align="center">
+            <Grid container  ustify="center" alignItems='center' direction='column'>
+                
+                <Grid item xs={12} >
+                    <h1> Добавить Клиента </h1>
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField 
+                        className={classes.textField} 
+                        required 
+                        id="name" 
+                        label="Имя" 
+                        value={this.state.name}
+                        onChange={this.set('name')}
+                    />
+                </Grid>
 
-                <p> Добавить нового любимчика </p>
-                <div align="left">
-                <TextField hintText="Имя" value={this.state.valueNamen} onChange={this.setName}/>
-                <Divider />
-                <TextField hintText="Телефон" value={this.state.valuePhone} onChange={this.setPhone}/>
-                <Divider />
-                <TextField hintText="Примечание" value={this.state.valueDescription} onChange={this.setDescription}/>
-                <Divider />
+                <Grid item xs={12}>
+                    <TextField 
+                        className={classes.textField} 
+                        required 
+                        id="phone" 
+                        label="Телефон" 
+                        value={this.state.phone}
+                        onChange={this.set('phone')}
+                    />
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField 
+                        className={classes.textField} 
+                        required 
+                        id="description" 
+                        label="Примечание" 
+                        value={this.state.description}
+                        onChange={this.set('description')}
+                    />
+                </Grid>
 
+                <Grid item xs={12}>
+                        <FormControl className={classes.formControl}>
+                        <InputLabel>Партнёр</InputLabel>
+                            <Select
+                                native
+                                value={this.state.partner}
+                                onChange={this.set('partner')}
+                                inputProps={{
+                                    id: 'age-native-simple',
+                                }}
+                            >
+                            <option value="" />
+                            {showPartners()}
+                            </Select>
+                        </FormControl>
+                    </Grid>
 
-                <SelectField floatingLabelText="Выбери Партнёра" value={this.state.valuePartner} onChange={this.changePartner}>
-                    {showPartners(DEF_PARTNERS)}
-                </SelectField>
-                </div>
-                <RaisedButton label="Добавить любимчика" primary={true} onClick={this.addClientToDatabase}/> 
+                <Grid item xs={12}>
+                    <Button className={classes.button} variant="raised" color="primary" onClick={this.addClientToDatabase}>Добавить 
+                    <Icon className={classes.rightIcon}>person_add</Icon>
+                    </Button>
+                </Grid>
 
-
-            </div>
+            </Grid>
     );
-  }
-}
+  };
+};
 
-export default AddClient;
+export default withStyles(styles)(AddClient);

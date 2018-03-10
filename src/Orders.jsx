@@ -1,17 +1,68 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
 
-const clientsUrl = "http://localhost:8000/getclients";
-const ordersUrl = "http://localhost:8000/getorders";
-const orderSuccessUrl = "http://localhost:8000/ordersuccess";
+//Material UI 1.0b
+import List, { ListItem, ListItemSecondaryAction, ListItemText, ListItemIcon} from 'material-ui/List';
+import IconButton from 'material-ui/IconButton';
+import ScheduleIcon from 'material-ui-icons/Schedule';
+import Divider from 'material-ui/Divider';
+import DoneIcon from 'material-ui-icons/Done';
+//////////////////
+import { loadOrders } from './loadData';
+
+//date.getDate() + '/0' + date.getMonth() + ' - ' + date.getHours() + ':' + date.getMinutes() 
+const ScheduleItem = props => {
+    const { serviceName, date } = props[1];
+
+  //  let data = new Date(date);
+    console.log(typeof(date));
+   // data = (date.getDate() + '/0' + date.getMonth() + ' - ' + date.getHours() + ':' + date.getMinutes() )
+    return (
+      <ListItem button>
+        <ListItemIcon>
+          <ScheduleIcon />
+        </ListItemIcon>
+        <ListItemText primary={serviceName + ""} secondary={date} />
+        <ListItemSecondaryAction>
+                <IconButton aria-label="Comments">
+                  <DoneIcon />
+                </IconButton>
+              </ListItemSecondaryAction>
+      </ListItem>
+      
+    );
+  };
+  
+  const CurrentSchedule = orders => (
+    <div>
+      <List>
+        {Object.entries(orders).map((order, i) => (
+          <ScheduleItem key={`si-${i}`} {...order} />
+        ))}
+      </List>
+    </div>
+  );
+
+
+const sortDate = date => {
+
+}
 
 class Orders extends Component {
-    constructor() {
-        super();
-        this.state = {
-        }
+    state={
+        orders: []
     }
 
+    componentDidMount() {
+        loadOrders().then(data => this.setState({orders: data})) 
+    }
+
+  render() {
+        return ( <CurrentSchedule {...this.state.orders} /> );
+  };
+}
+/*// <p> Продажи (Всего: {this.state.totalOrders.length}) </p>  
+    //  const orders = [] && createListOfCurrentOrders(this.state.orders);
     done =(event) => {
         $.post(orderSuccessUrl, {
             clientId: event.target.value, 
@@ -20,33 +71,9 @@ class Orders extends Component {
         console.log(event.target.value + " done");
     }
 
-  render() {
-    const orders = [];
-    if (this.props.orders) {
-        this.props.orders.map((el, i) => {
-            orders.push(
-                <div key={i}>
-                    <p style={{ backgroundColor: el.status==="Booked" ? "green" : "red" }}> 
-                        {el.serviceName} {el.price} {el.date} {el.clientId}
-                        <button value={el.clientId} onClick={this.done}>X</button> 
-                    </p> 
-                </div>
-                );
-        });
-    }
     orders.sort((a, b) => {
         return new Date(a.date) - new Date(b.date);
       });
-
-        return (// <p> Продажи (Всего: {this.state.totalOrders.length}) </p>
-        
-            <div> 
-                
-                {orders}
-            </div>
-        )
-  }
-}
-
+*/
 
 export default Orders;

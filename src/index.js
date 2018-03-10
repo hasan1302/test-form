@@ -1,26 +1,34 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import {blue500} from 'material-ui/styles/colors';
-import AppBar from 'material-ui/AppBar';
 
-import AddClient from './AddClient';
-import Sales from './Sales';
-import Authorization from './Authorization';
-import Clients from './Clients';
+import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
+import Button from 'material-ui/Button';
 
-const muiTheme = getMuiTheme({
-    palette: {
-      textColor: blue500
+
+import Authorization from './Authorization.jsx';
+
+const lavaTheme = createMuiTheme({
+  overrides: {
+    MuiButton: {
+      // Name of the styleSheet
+      root: {
+        // Name of the rule
+        background: 'linear-gradient(45deg, #FE6B8B 30%, #2196f3 90%)',
+        borderRadius: 3,
+        border: 0,
+        color: 'white',
+        height: 48,
+        padding: '0 30px',
+        boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .30)',
+      },
     },
-    appBar: {
-      height: 50
-    }
-  });
+    
+  },
+
+});
 
 const App = () => (
-    <MuiThemeProvider muiTheme={muiTheme}>
+    <MuiThemeProvider theme={lavaTheme}>
       <Authorization />
     </MuiThemeProvider>
   );
@@ -28,12 +36,4 @@ const App = () => (
 ReactDOM.render(<App />, document.getElementById('root'));
 
 
-  /*
-  // MuiThemeProvider takes the theme as a property and passed it down the hierarchy.
-  const Main = () => (
-    <MuiThemeProvider muiTheme={muiTheme}>
-      <AppBar title="My AppBar" />
-      <AddClient />
-    </MuiThemeProvider>
-  );
-  */
+ 

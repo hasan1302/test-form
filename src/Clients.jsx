@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 //import ClientsStyles from "./ClientsStyles.css";
 import $ from 'jquery';
-import Paper from 'material-ui/Paper';
-import Divider from 'material-ui/Divider';
-import RaisedButton from 'material-ui/RaisedButton';
-import Subheader from 'material-ui/Subheader';
-import {List, ListItem} from 'material-ui/List';
+
+import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 import ClientInfo from './ClientInfo.jsx';
+import PeopleIcon from 'material-ui-icons/People'
 
 const clientsUrl = "http://localhost:8000/getclients";
 const ordersUrl = "http://localhost:8000/getorders";
@@ -22,6 +20,29 @@ function searchName(name, clients){
         }
     }
 }
+
+const ClientListItem = props => {
+    const { name = 'def name', registerDate = 'def reg date' } = props[1];
+    return (
+      <ListItem button>
+        <ListItemIcon>
+          <PeopleIcon />
+        </ListItemIcon>
+        <ListItemText primary={name} />
+      </ListItem>
+      
+    );
+  };
+  
+  const ListOfClients = clients => (
+    <div>
+      <List>
+        {Object.entries(clients).map((client, i) => (
+          <ClientListItem key={`si-${i}`} {...client} />
+        ))}
+      </List>
+    </div>
+  );
 
 
 class Clients extends Component {
@@ -70,9 +91,14 @@ class Clients extends Component {
     }
 
   render() {
-    const showClientInfo = this.state.client.name ? <ClientInfo client={this.state.client} orders={this.props.orders}/> : null ;
+   // const showClientInfo = this.state.client.name ? <ClientInfo client={this.state.client} orders={this.props.orders}/> : null ;
     return (
-            <div>
+           <ListOfClients {...this.state.clients}/>
+    );
+  }
+}
+/*
+ <div>
                     <div style={{display: "inline-block"}}>
                         <Paper style={{height: 700, overflow: 'auto', width: 300}} rounded={false} >
                             <Subheader align="center">Клиенты</Subheader>
@@ -86,10 +112,6 @@ class Clients extends Component {
                     </div>
              
             </div>
-    );
-  }
-}
-/*
                             <input type="text" onChange={this.changeName}/>
 
 */
