@@ -1,13 +1,70 @@
 import React, { Component } from 'react';
-//import ClientsStyles from "./ClientsStyles.css";
-import $ from 'jquery';
-
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
-import ClientInfo from './ClientInfo.jsx';
+import ClientInfo from './ClientInfo';
 import PeopleIcon from 'material-ui-icons/People'
+import { loadClients } from './loadData';
 
-const clientsUrl = "http://localhost:8000/getclients";
-const ordersUrl = "http://localhost:8000/getorders";
+
+
+const ClientListItem = client => {
+    const { name = 'def_name', registerDate = 'def_regdate', _id = "def_id" } = client[1];
+    return (
+      <ListItem button onClick={ (_id) => {this.props.chooseClient(_id)}}>
+        <ListItemIcon>
+          <PeopleIcon />
+        </ListItemIcon>
+        <ListItemText primary={name} secondary={_id}/>
+        
+      </ListItem>
+    );
+  };
+  
+  const ListOfClients = clients => 
+    <div>
+      <List>
+        {Object.entries(clients).map((client, i) => (
+          <ClientListItem key={`si-${i}`} {...client} />
+        ))}
+      </List>
+    </div>
+   
+  
+
+
+class Clients extends Component {
+        state = {
+            clients: [],
+        }
+    
+    componentDidMount() {
+        loadClients().then(data => this.setState({clients: data}));
+    }
+
+    chooseClient = (client) => {
+        console.log(client);
+        this.setState({client: client}); 
+    }
+
+  render() {
+    return (
+           <ListOfClients {...this.state.clients} chooseClient={ (client)=> {this.setState({client: client})} }/>
+    );
+  }
+}
+//<ClientInfo {...this.state.clients[2]}/>
+
+
+
+
+
+
+
+
+
+
+
+   // const showClientInfo = this.state.client.name ? <ClientInfo client={this.state.client} orders={this.props.orders}/> : null ;
+/*
 
 const styleClients = {width: 400,marginRight: 12,display: "inline-block"};
 const styleInfo = {display: "inline-block"};
@@ -20,84 +77,9 @@ function searchName(name, clients){
         }
     }
 }
-
-const ClientListItem = props => {
-    const { name = 'def name', registerDate = 'def reg date' } = props[1];
-    return (
-      <ListItem button>
-        <ListItemIcon>
-          <PeopleIcon />
-        </ListItemIcon>
-        <ListItemText primary={name} />
-      </ListItem>
-      
-    );
-  };
-  
-  const ListOfClients = clients => (
-    <div>
-      <List>
-        {Object.entries(clients).map((client, i) => (
-          <ClientListItem key={`si-${i}`} {...client} />
-        ))}
-      </List>
-    </div>
-  );
-
-
-class Clients extends Component {
-    constructor() {
-        super();
-        this.state = {
-            client: {},
-            clientName: "",
-            view: []
-        }
-    }
-
-    componentDidMount() {
-        fetch(clientsUrl).then(response => response.json()).then(data => this.setState({clients: data}));
-    }
-
     chooseClient = (client) => {
         this.setState({client: client}); 
     }
-
-    showAllClients = () => {
-        let clientsNames = [];
-        if (this.props.clients.length > 0) {
-            this.props.clients.map((el, i) => {
-                clientsNames.push(<ListItem align="center" onClick={this.chooseClient.bind(this, el)}  key={i} value={el.name} primaryText={el.name}/>); 
-            });                        
-        }
-        return clientsNames;
-    }
-
-    showSearchedClient = () => {
-        let clientsNames = [];
-        if (this.props.clients.length > 0) {
-            this.props.clients.map((el, i) => {
-                if (this.state.clientName.toLocaleLowerCase() === el.name.toLocaleLowerCase()) {
-                    clientsNames.push(<ListItem align="center" onClick={this.chooseClient.bind(this, el)}  key={i} value={el.name} primaryText={el.name}/>); 
-                }
-            });                        
-        }
-        return clientsNames;
-    }
-
-    changeName = (event) => {
-     //   let data = searchName(event.target.value, this.props.clients);
-        this.setState({clientName: event.target.value});
-    }
-
-  render() {
-   // const showClientInfo = this.state.client.name ? <ClientInfo client={this.state.client} orders={this.props.orders}/> : null ;
-    return (
-           <ListOfClients {...this.state.clients}/>
-    );
-  }
-}
-/*
  <div>
                     <div style={{display: "inline-block"}}>
                         <Paper style={{height: 700, overflow: 'auto', width: 300}} rounded={false} >
@@ -113,6 +95,23 @@ class Clients extends Component {
              
             </div>
                             <input type="text" onChange={this.changeName}/>
+
+                                changeName = (event) => {
+     //   let data = searchName(event.target.value, this.props.clients);
+        this.setState({clientName: event.target.value});
+    }
+
+                                showSearchedClient = () => {
+        let clientsNames = [];
+        if (this.props.clients.length > 0) {
+            this.props.clients.map((el, i) => {
+                if (this.state.clientName.toLocaleLowerCase() === el.name.toLocaleLowerCase()) {
+                    clientsNames.push(<ListItem align="center" onClick={this.chooseClient.bind(this, el)}  key={i} value={el.name} primaryText={el.name}/>); 
+                }
+            });                        
+        }
+        return clientsNames;
+    }
 
 */
 

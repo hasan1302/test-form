@@ -10,6 +10,11 @@ const ordersUrl = "http://localhost:8000/getorders";
    // .then(data => clients = data)
 //}
 
+export function loadData(url) {
+    return fetch(url)
+    .then(response => response.json());
+}
+
 export function loadOrders() {
     return fetch(ordersUrl)
         .then(response => response.json());

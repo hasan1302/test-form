@@ -15,7 +15,7 @@ const ScheduleItem = props => {
     const { serviceName, date } = props[1];
 
   //  let data = new Date(date);
-    console.log(typeof(date));
+
    // data = (date.getDate() + '/0' + date.getMonth() + ' - ' + date.getHours() + ':' + date.getMinutes() )
     return (
       <ListItem button>
@@ -61,6 +61,10 @@ class Orders extends Component {
         return ( <CurrentSchedule {...this.state.orders} /> );
   };
 }
+
+
+export default Orders;
+
 /*// <p> Продажи (Всего: {this.state.totalOrders.length}) </p>  
     //  const orders = [] && createListOfCurrentOrders(this.state.orders);
     done =(event) => {
@@ -75,5 +79,3 @@ class Orders extends Component {
         return new Date(a.date) - new Date(b.date);
       });
 */
-
-export default Orders;

@@ -54,7 +54,13 @@ class Brain extends React.Component {
 
             <Toolbar>
               
-              <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
+              <IconButton 
+                className={classes.menuButton} 
+                color="inherit" 
+                aria-label="Menu"
+                aria-label="open drawer"
+                onClick={this.handleDrawerOpen}
+              >
                 <MenuIcon />
               </IconButton>
 
