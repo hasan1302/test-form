@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { createStore, combineReducer } from “redux”;
 
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import Button from 'material-ui/Button';
@@ -26,6 +27,21 @@ const lavaTheme = createMuiTheme({
   },
 
 });
+
+const userReducer = (state = {}, action) => {
+  return state;
+};
+
+const orderReducer = (state = {}, action) => {
+return state;
+};
+
+const reducers = combineReducers({
+userState: userReducer,
+orderState: orderReducer
+});
+
+const store = createStore(reducers);
 
 const App = () => (
     <MuiThemeProvider theme={lavaTheme}>
